@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { TaskListComponent } from './components/task-list/task-list.component';
-import { HomepageComponent } from './components/task-list/homepage.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 export const routes: Routes = [
     { path: '', component: HomepageComponent},
