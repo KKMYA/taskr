@@ -38,12 +38,10 @@ header {
       clip-path: ellipse(100% 90% at 50% 0%);
       height: 100px;
     }
-  
-  #logo-header {
-    width: 300px;
-    height: 300px;
+  #login-link{
+    text-decoration: none;
+    color: inherit;
   }
-
   #list-header {
     font-weight: bold;
     list-style-type: none;
