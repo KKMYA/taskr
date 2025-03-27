@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly loginUrl = 'http://localhost:8080/api/authenticate';  // Change l'URL du backend si nécessaire
+  private readonly loginUrl = 'http://localhost:8080/api/authenticate'; 
 
   constructor(private readonly http: HttpClient) {}
 
