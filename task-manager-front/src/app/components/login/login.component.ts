@@ -25,7 +25,7 @@ export class LoginComponent {
       const { username, password } = this.loginForm.value;
   
       if (username && password) {
-        // Passer les valeurs à authService.login() seulement si elles sont valides
+        // Passe les valeurs à authService.login() seulement si elles sont valides
         this.authService.login({ username, password }).subscribe(response => {
           console.log('User logged in successfully', response);
         }, error => {
