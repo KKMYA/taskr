@@ -16,8 +16,8 @@ export class CguComponent implements OnInit {
   cguContent: SafeHtml = '';
 
   constructor(
-    private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private readonly http: HttpClient,
+    private readonly sanitizer: DomSanitizer
   ) {}
 
   async ngOnInit() {
