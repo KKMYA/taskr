@@ -17,7 +17,7 @@ En créant un compte ou en utilisant TaskR, vous acceptez sans réserve l’ense
 L’accès à TaskR est ouvert à toute personne disposant d’un compte utilisateur.  
 La création d’un compte nécessite la fourniture de certaines informations personnelles (nom, prénom, adresse email, mot de passe, etc.).
 
-TaskR est accessible via une interface web et utilise un backend sécurisé développé avec **Spring Boot**.
+TaskR est accessible via une interface web et utilise un backend sécurisé développé avec **Symfony**.
 
 ---
 
@@ -27,8 +27,8 @@ TaskR collecte uniquement les informations nécessaires à l’inscription et au
 
 Les données sont :
 
-- stockées de manière sécurisée,
-- utilisées uniquement à des fins internes (gestion de compte, personnalisation de l'expérience),
+- stockées de manière sécurisée.
+- utilisées uniquement à des fins internes (gestion de compte, personnalisation de l'expérience).
 - jamais revendues ou partagées sans consentement explicite.
 
 Pour toute demande relative à vos données personnelles, vous pouvez nous contacter à :  
@@ -40,8 +40,8 @@ Pour toute demande relative à vos données personnelles, vous pouvez nous conta
 
 TaskR permet à l’utilisateur de :
 
-- Créer, modifier, supprimer des tâches personnelles,
-- Organiser des listes de tâches,
+- Créer, modifier, supprimer des tâches personnelles.
+- Organiser des listes de tâches.
 - Accéder à un tableau de bord personnalisé.
 
 Certaines API tierces peuvent être utilisées pour enrichir le contenu ou améliorer l’expérience utilisateur.  
@@ -53,8 +53,8 @@ TaskR s’engage à utiliser uniquement des services conformes au **RGPD**.
 
 L'utilisateur s'engage à :
 
-- Fournir des informations exactes lors de l’inscription,
-- Ne pas usurper l’identité d’un tiers,
+- Fournir des informations exactes lors de l’inscription.
+- Ne pas usurper l’identité d’un tiers.
 - Ne pas utiliser TaskR à des fins illégales ou nuisibles.
 
 TaskR se réserve le droit de suspendre ou supprimer un compte utilisateur en cas de non-respect de ces obligations.
@@ -73,8 +73,8 @@ Toute reproduction ou utilisation sans autorisation préalable est interdite.
 TaskR est fourni "en l’état", sans garantie explicite.  
 Bien que nous nous efforcions d'assurer la continuité et la sécurité du service, nous ne saurions être tenus responsables en cas de :
 
-- perte de données,
-- interruption de service,
+- perte de données.
+- interruption de service.
 - bugs ou failles de sécurité.
 
 ---
