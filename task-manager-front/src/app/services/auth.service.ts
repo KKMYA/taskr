@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly loginUrl = 'http://127.0.0.1:8000';
+  private readonly loginUrl = 'http://127.0.0.1:8000/login';
 
   constructor(private  readonly http: HttpClient) {}
 
