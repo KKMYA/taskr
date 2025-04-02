@@ -1,0 +1,73 @@
+# === GLOBAL IGNORES ===
+
+# --- Env Files ---
+.env
+.env.*
+/task-manager-back/.env
+/task-manager-back/.env.*
+/task-manager-back/.env.local
+/task-manager-back/.env.local.php
+/task-manager-back/.env.*.local
+/task-manager-front/.env
+
+# --- OS Files ---
+.DS_Store
+Thumbs.db
+
+# --- IDEs ---
+.idea/
+.vscode/
+*.sublime-workspace
+.project
+.classpath
+.settings/
+.c9/
+*.launch
+.history/
+
+# === BACKEND (Symfony) ===
+
+# Symfony: Environment & config
+/task-manager-back/config/secrets/prod/prod.decrypt.private.php
+
+# Symfony: Vendor and var
+/task-manager-back/vendor/
+/task-manager-back/var/
+
+# Symfony: Public build artifacts
+/task-manager-back/public/bundles/
+/task-manager-back/public/assets/
+/task-manager-back/assets/vendor/
+
+# Symfony: PHPUnit & tests
+/task-manager-back/phpunit.xml
+/task-manager-back/.phpunit.result.cache
+
+# === FRONTEND (Angular) ===
+
+# Angular build & cache
+/task-manager-front/dist/
+/task-manager-front/tmp/
+/task-manager-front/out-tsc/
+/task-manager-front/.angular/cache
+/task-manager-front/coverage
+
+# Node modules
+/task-manager-front/node_modules
+npm-debug.log*
+yarn-error.log*
+
+# Bazel
+/bazel-out
+
+# Misc Angular/JS tools
+/task-manager-front/libpeerconnection.log
+/task-manager-front/testem.log
+/task-manager-front/typings
+/task-manager-front/connect.lock
+
+# VS Code project-specific files to keep (optional)
+/.vscode/settings.json
+/.vscode/tasks.json
+/.vscode/launch.json
+/.vscode/extensions.json
