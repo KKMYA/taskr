@@ -10,6 +10,7 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) {}
 
+  // Renvoi l'erreur 401 si aucun utilisateur correspondant aux credentials n'a été trouvé test
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(this.loginUrl, credentials);
   }
