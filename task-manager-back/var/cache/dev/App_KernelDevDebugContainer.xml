@@ -26,6 +26,7 @@
       <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
+      <parameter key="NelmioCorsBundle">Nelmio\CorsBundle\NelmioCorsBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -79,6 +80,10 @@
       <parameter key="DoctrineFixturesBundle" type="collection">
         <parameter key="path">C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-fixtures-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\FixturesBundle</parameter>
+      </parameter>
+      <parameter key="NelmioCorsBundle" type="collection">
+        <parameter key="path">C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\nelmio\cors-bundle</parameter>
+        <parameter key="namespace">Nelmio\CorsBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -257,6 +262,53 @@
         </parameter>
       </parameter>
     </parameter>
+    <parameter key="nelmio_cors.map" type="collection">
+      <parameter key="^/" type="collection">
+        <parameter key="allow_origin" type="collection">
+          <parameter>http://localhost:4200</parameter>
+        </parameter>
+        <parameter key="allow_methods" type="collection">
+          <parameter>GET</parameter>
+          <parameter>OPTIONS</parameter>
+          <parameter>POST</parameter>
+          <parameter>PUT</parameter>
+          <parameter>DELETE</parameter>
+        </parameter>
+        <parameter key="allow_headers" type="collection">
+          <parameter>content-type</parameter>
+          <parameter>authorization</parameter>
+        </parameter>
+        <parameter key="allow_credentials">true</parameter>
+        <parameter key="max_age">3600</parameter>
+      </parameter>
+    </parameter>
+    <parameter key="nelmio_cors.defaults" type="collection">
+      <parameter key="allow_origin" type="collection">
+        <parameter>http://localhost:4200</parameter>
+      </parameter>
+      <parameter key="allow_credentials">true</parameter>
+      <parameter key="allow_headers" type="collection">
+        <parameter>content-type</parameter>
+        <parameter>authorization</parameter>
+      </parameter>
+      <parameter key="allow_private_network">false</parameter>
+      <parameter key="expose_headers" type="collection"/>
+      <parameter key="allow_methods" type="collection">
+        <parameter>GET</parameter>
+        <parameter>OPTIONS</parameter>
+        <parameter>POST</parameter>
+        <parameter>PUT</parameter>
+        <parameter>DELETE</parameter>
+      </parameter>
+      <parameter key="max_age">3600</parameter>
+      <parameter key="hosts" type="collection"/>
+      <parameter key="origin_regex">false</parameter>
+      <parameter key="forced_allow_origin_value">null</parameter>
+      <parameter key="skip_same_as_origin">true</parameter>
+    </parameter>
+    <parameter key="nelmio_cors.cors_listener.class">Nelmio\CorsBundle\EventListener\CorsListener</parameter>
+    <parameter key="nelmio_cors.options_resolver.class">Nelmio\CorsBundle\Options\Resolver</parameter>
+    <parameter key="nelmio_cors.options_provider.config.class">Nelmio\CorsBundle\Options\ConfigProvider</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -362,15 +414,22 @@
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
     </service>
+    <service id="App\Controller\AuthController" class="App\Controller\AuthController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\AuthController"/>
+      </call>
+    </service>
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_hasher"/>
     </service>
-    <service id="App\Repository\RolesRepository" class="App\Repository\RolesRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\RoleRepository" class="App\Repository\RoleRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -402,7 +461,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.F6vdjrP"/>
+      <argument type="service" id=".service_locator.M4UHJc9"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -2364,7 +2423,6 @@
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\validator/Resources/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\form/Resources/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\security-core/Resources/translations</argument>
-          <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\framework-bundle/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-bundle/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-migrations-bundle/translations</argument>
@@ -2378,13 +2436,14 @@
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\monolog-bundle/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\maker-bundle/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
+          <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\nelmio\cors-bundle/translations</argument>
+          <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\validator/Resources/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\form/Resources/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\security-core/Resources/translations</argument>
-            <argument>translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\framework-bundle/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-bundle/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-migrations-bundle/translations</argument>
@@ -2398,6 +2457,8 @@
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\monolog-bundle/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\maker-bundle/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
+            <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\nelmio\cors-bundle/translations</argument>
+            <argument>translations</argument>
           </argument>
         </argument>
       </argument>
@@ -2797,6 +2858,30 @@
           <argument>onKernelResponse</argument>
         </argument>
         <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="nelmio_cors.cors_listener"/>
+          <argument>onKernelRequest</argument>
+        </argument>
+        <argument>250</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.response</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="nelmio_cors.cors_listener"/>
+          <argument>onKernelResponse</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.response</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="nelmio_cors.cacheable_response_vary_listener"/>
+          <argument>onResponse</argument>
+        </argument>
+        <argument>-10</argument>
       </call>
       <call method="addListener">
         <argument>kernel.controller_arguments</argument>
@@ -3364,7 +3449,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.F6vdjrP"/>
+      <argument type="service" id=".service_locator.M4UHJc9"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5235,7 +5320,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.CIDWuNF"/>
+      <argument type="service" id=".service_locator.D.a7qDv"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7293,12 +7378,36 @@
     <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
       <tag name="doctrine.fixtures.purger_factory" alias="default"/>
     </service>
+    <service id="nelmio_cors.cors_listener" class="Nelmio\CorsBundle\EventListener\CorsListener">
+      <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="250"/>
+      <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" priority="0"/>
+      <tag name="container.hot_path"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="nelmio_cors.options_resolver"/>
+    </service>
+    <service id="nelmio_cors.options_resolver" class="Nelmio\CorsBundle\Options\Resolver">
+      <argument type="collection">
+        <argument type="service" id="nelmio_cors.options_provider.config"/>
+      </argument>
+    </service>
+    <service id="nelmio_cors.options_provider.config" class="Nelmio\CorsBundle\Options\ConfigProvider">
+      <tag name="nelmio_cors.options_provider" priority="-1"/>
+      <argument>%nelmio_cors.map%</argument>
+      <argument>%nelmio_cors.defaults%</argument>
+    </service>
+    <service id="nelmio_cors.cacheable_response_vary_listener" class="Nelmio\CorsBundle\EventListener\CacheableResponseVaryListener">
+      <tag name="kernel.event_listener" event="kernel.response" method="onResponse" priority="-10"/>
+      <tag name="container.hot_path"/>
+    </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RolesRepository" class="App\Repository\RolesRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\RolesRepository" class="App\Repository\RolesRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RoleRepository" class="App\Repository\RoleRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\RoleRepository" class="App\Repository\RoleRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.pRu6x_4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7817,15 +7926,30 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.zHyJIs5" method="withContext"/>
     </service>
-    <service id=".service_locator.F6vdjrP" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.61ifPV9" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="usersRepository" type="service_closure" id="App\Repository\UserRepository"/>
+        <argument key="passwordHasher" type="service_closure" id="security.user_password_hasher"/>
+      </argument>
+    </service>
+    <service id=".service_locator.61ifPV9.App\Controller\AuthController::login()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AuthController::login()"/>
+      <argument>App\Controller\AuthController::login()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.61ifPV9" method="withContext"/>
+    </service>
+    <service id=".service_locator.M4UHJc9" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\AuthController::login" type="service_closure" id=".service_locator.61ifPV9.App\Controller\AuthController::login()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\AuthController:login" type="service_closure" id=".service_locator.61ifPV9.App\Controller\AuthController::login()"/>
       </argument>
     </service>
     <service id=".service_locator.ea.H0ae" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8140,11 +8264,11 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.CIDWuNF" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.D.a7qDv" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Repository\RolesRepository" type="service_closure" id="App\Repository\RolesRepository"/>
-        <argument key="App\Repository\UsersRepository" type="service_closure" id="App\Repository\UsersRepository"/>
+        <argument key="App\Repository\RoleRepository" type="service_closure" id="App\Repository\RoleRepository"/>
+        <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
     <service id=".service_locator.BxSdgVt" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8381,6 +8505,28 @@
         <argument key="translation.loader.json" type="service_closure" id="translation.loader.json"/>
       </argument>
     </service>
+    <service id=".service_locator.ZyP9f7K" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="router" type="service_closure" id="router.default" on-invalid="ignore"/>
+        <argument key="request_stack" type="service_closure" id="request_stack" on-invalid="ignore"/>
+        <argument key="http_kernel" type="service_closure" id="http_kernel" on-invalid="ignore"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer" on-invalid="ignore"/>
+        <argument key="security.authorization_checker" type="service_closure" id="security.authorization_checker" on-invalid="ignore"/>
+        <argument key="twig" type="service_closure" id="twig" on-invalid="ignore"/>
+        <argument key="form.factory" type="service_closure" id="form.factory" on-invalid="ignore"/>
+        <argument key="security.token_storage" type="service_closure" id="security.token_storage" on-invalid="ignore"/>
+        <argument key="security.csrf.token_manager" type="service_closure" id="security.csrf.same_origin_token_manager" on-invalid="ignore"/>
+        <argument key="parameter_bag" type="service_closure" id="parameter_bag" on-invalid="ignore"/>
+        <argument key="web_link.http_header_serializer" type="service_closure" id="web_link.http_header_serializer" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\AuthController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AuthController"/>
+      <argument>App\Controller\AuthController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.7jukgan" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8566,6 +8712,7 @@
       <call method="allowControllers">
         <argument type="collection">
           <argument>App\Kernel</argument>
+          <argument>App\Controller\AuthController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
       </call>
@@ -9965,7 +10112,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.F6vdjrP"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.M4UHJc9"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -10009,5 +10156,7 @@
     <service id="messenger.bus.default" alias="debug.traced.messenger.bus.default"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
+    <service id=".service_locator.M9jzCM." alias=".service_locator.61ifPV9"/>
+    <service id=".service_locator.9nvaCmp" alias=".service_locator.ZyP9f7K"/>
   </services>
 </container>

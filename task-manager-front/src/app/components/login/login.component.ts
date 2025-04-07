@@ -15,18 +15,17 @@ export class LoginComponent {
 
   constructor(private readonly fb: FormBuilder, private readonly authService: AuthService) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
   onSubmit() {
-
-    const username = this.loginForm.get('username')?.value;
+    const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
       
-    if (typeof username === 'string' && typeof password === 'string') {
-      this.authService.login({ username, password }).subscribe(
+    if (typeof email === 'string' && typeof password === 'string') {
+      this.authService.login({ email, password }).subscribe(
         (response) => {
           console.log('User logged in successfully', response);
         },

@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '46c6d0038ec89be0f54374be0d22c75ffaa33db3',
+        'reference' => 'c79d308bccfb25be92254463ed6cda40c4b005e0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '46c6d0038ec89be0f54374be0d22c75ffaa33db3',
+            'reference' => 'c79d308bccfb25be92254463ed6cda40c4b005e0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -216,6 +216,15 @@
             'install_path' => __DIR__ . '/../myclabs/deep-copy',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'nelmio/cors-bundle' => array(
+            'pretty_version' => '2.5.0',
+            'version' => '2.5.0.0',
+            'reference' => '3a526fe025cd20e04a6a11370cf5ab28dbb5a544',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../nelmio/cors-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'nikic/php-parser' => array(
             'pretty_version' => 'v5.4.0',

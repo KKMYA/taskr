@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Role;
-use App\Entity\Users;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
         $manager->persist($userRole);
 
         //Utilisateur admin
-        $admin = new Users();
+        $admin = new User();
         $admin->setMail('admin@example.com');
         $admin->setFirstName('Super');
         $admin->setLastName('Admin');
@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
 
         //Boucle pour la création de 10 fixtures avec rôle "user", données Françaises
         for ($i = 0; $i < 10; $i++) {
-            $user = new Users();
+            $user = new User();
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
             $user->setMail($faker->unique()->safeEmail);
