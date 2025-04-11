@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,18 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   loginForm;
 
-  constructor(private readonly fb: FormBuilder, private readonly authService: AuthService) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
+  
+  
 
   onSubmit() {
     const email = this.loginForm.get('email')?.value;
@@ -28,6 +35,9 @@ export class LoginComponent {
       this.authService.login({ email, password }).subscribe(
         (response) => {
           console.log('User logged in successfully', response);
+          localStorage.setItem('jwt_token', response.token);
+          console.log(localStorage.getItem('jwt_token'));
+          this.router.navigate(['/']);
         },
         (error) => {
           console.log('Login failed', error);

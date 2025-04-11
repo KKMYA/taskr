@@ -27,6 +27,7 @@
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
       <parameter key="NelmioCorsBundle">Nelmio\CorsBundle\NelmioCorsBundle</parameter>
+      <parameter key="LexikJWTAuthenticationBundle">Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -84,6 +85,10 @@
       <parameter key="NelmioCorsBundle" type="collection">
         <parameter key="path">C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\nelmio\cors-bundle</parameter>
         <parameter key="namespace">Nelmio\CorsBundle</parameter>
+      </parameter>
+      <parameter key="LexikJWTAuthenticationBundle" type="collection">
+        <parameter key="path">C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\lexik\jwt-authentication-bundle</parameter>
+        <parameter key="namespace">Lexik\Bundle\JWTAuthenticationBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -240,6 +245,8 @@
     <parameter key="security.authentication.session_strategy.strategy">migrate</parameter>
     <parameter key="security.authentication.hide_user_not_found">true</parameter>
     <parameter key="security.firewalls" type="collection">
+      <parameter>api_login</parameter>
+      <parameter>api</parameter>
       <parameter>dev</parameter>
       <parameter>main</parameter>
     </parameter>
@@ -309,6 +316,12 @@
     <parameter key="nelmio_cors.cors_listener.class">Nelmio\CorsBundle\EventListener\CorsListener</parameter>
     <parameter key="nelmio_cors.options_resolver.class">Nelmio\CorsBundle\Options\Resolver</parameter>
     <parameter key="nelmio_cors.options_provider.config.class">Nelmio\CorsBundle\Options\ConfigProvider</parameter>
+    <parameter key="lexik_jwt_authentication.pass_phrase">%env(JWT_PASSPHRASE)%</parameter>
+    <parameter key="lexik_jwt_authentication.token_ttl">3600</parameter>
+    <parameter key="lexik_jwt_authentication.clock_skew">0</parameter>
+    <parameter key="lexik_jwt_authentication.allow_no_expiration">false</parameter>
+    <parameter key="lexik_jwt_authentication.user_id_claim">username</parameter>
+    <parameter key="lexik_jwt_authentication.encoder.signature_algorithm">RS256</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -417,10 +430,12 @@
     <service id="App\Controller\AuthController" class="App\Controller\AuthController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\AuthController"/>
       </call>
     </service>
+    <service id="App\Controller\TestController" class="App\Controller\TestController" autowire="true" autoconfigure="true"/>
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_hasher"/>
@@ -610,9 +625,11 @@
         <argument key="cache.security_is_granted_attribute_expression_language" type="service" id="cache.security_is_granted_attribute_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_is_csrf_token_valid_attribute_expression_language" type="service" id="cache.security_is_csrf_token_valid_attribute_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall" type="service" id="debug.security.firewall" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.security.firewall.authenticator.api" type="service" id="debug.security.firewall.authenticator.api" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall.authenticator.main" type="service" id="debug.security.firewall.authenticator.main" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.handler.main" type="service" id="monolog.handler.main" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.handler.console" type="service" id="monolog.handler.console" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.security.event_dispatcher.api" type="service" id="debug.security.event_dispatcher.api" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.event_dispatcher.main" type="service" id="debug.security.event_dispatcher.main" on-invalid="ignore_uninitialized"/>
         <argument key=".debug.http_client" type="service" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
       </argument>
@@ -714,6 +731,9 @@
         <argument key="debug.security.firewall" type="collection">
           <argument>reset</argument>
         </argument>
+        <argument key="debug.security.firewall.authenticator.api" type="collection">
+          <argument>reset</argument>
+        </argument>
         <argument key="debug.security.firewall.authenticator.main" type="collection">
           <argument>reset</argument>
         </argument>
@@ -721,6 +741,9 @@
           <argument>reset</argument>
         </argument>
         <argument key="monolog.handler.console" type="collection">
+          <argument>reset</argument>
+        </argument>
+        <argument key="debug.security.event_dispatcher.api" type="collection">
           <argument>reset</argument>
         </argument>
         <argument key="debug.security.event_dispatcher.main" type="collection">
@@ -1054,7 +1077,7 @@
     <service id="console.command.event_dispatcher_debug" class="Symfony\Bundle\FrameworkBundle\Command\EventDispatcherDebugCommand">
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.xRvtKlk"/>
+      <argument type="service" id=".service_locator.8_qPj7R"/>
       <call method="setName">
         <argument>debug:event-dispatcher</argument>
       </call>
@@ -2437,6 +2460,7 @@
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\maker-bundle/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\nelmio\cors-bundle/translations</argument>
+          <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\lexik\jwt-authentication-bundle/translations</argument>
           <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
@@ -2458,6 +2482,7 @@
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\symfony\maker-bundle/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
             <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\nelmio\cors-bundle/translations</argument>
+            <argument>C:\Users\Alex\Desktop\Projects\taskr\task-manager-back\vendor\lexik\jwt-authentication-bundle/translations</argument>
             <argument>translations</argument>
           </argument>
         </argument>
@@ -2855,6 +2880,14 @@
         <argument>kernel.response</argument>
         <argument type="collection">
           <argument type="service_closure" id="security.context_listener.0"/>
+          <argument>onKernelResponse</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.response</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.context_listener.1"/>
           <argument>onKernelResponse</argument>
         </argument>
         <argument>0</argument>
@@ -6208,7 +6241,7 @@
       <argument>,</argument>
     </service>
     <service id="twig.runtime_loader" class="Twig\RuntimeLoader\ContainerRuntimeLoader">
-      <argument type="service" id=".service_locator.Nsv4T6i"/>
+      <argument type="service" id=".service_locator.0mTqotR"/>
     </service>
     <service id="twig.error_renderer.html" class="Symfony\Bridge\Twig\ErrorRenderer\TwigErrorRenderer">
       <argument type="service" id="twig"/>
@@ -6407,6 +6440,9 @@
     </service>
     <service id="turbo.twig.extension" class="Symfony\UX\Turbo\Twig\TwigExtension">
       <tag name="twig.extension"/>
+    </service>
+    <service id="turbo.twig.runtime" class="Symfony\UX\Turbo\Twig\TurboRuntime">
+      <tag name="twig.runtime"/>
       <argument type="service" id=".service_locator.GIuJv7e"/>
       <argument>default</argument>
     </service>
@@ -6435,6 +6471,8 @@
     <service id="security.helper" class="Symfony\Bundle\SecurityBundle\Security">
       <argument type="service" id=".service_locator.NXTTdTW"/>
       <argument type="collection">
+        <argument key="api_login">null</argument>
+        <argument key="api" type="service" id=".service_locator.JimicQO"/>
         <argument key="dev">null</argument>
         <argument key="main">null</argument>
       </argument>
@@ -6458,6 +6496,7 @@
     <service id="security.user_checker" class="Symfony\Component\Security\Core\User\InMemoryUserChecker"/>
     <service id="security.user_checker_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection">
+        <argument key="api" type="service_closure" id="security.user_checker"/>
         <argument key="main" type="service_closure" id="security.user_checker"/>
       </argument>
     </service>
@@ -6490,8 +6529,10 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="security.firewall.map" class="Symfony\Bundle\SecurityBundle\Security\FirewallMap">
-      <argument type="service" id=".service_locator.bsoXAxw"/>
+      <argument type="service" id=".service_locator.4Jl3jDo"/>
       <argument type="iterator">
+        <argument key="security.firewall.map.context.api_login" type="service" id=".security.request_matcher.gcxynGs"/>
+        <argument key="security.firewall.map.context.api" type="service" id=".security.request_matcher.7hdBUZ0"/>
         <argument key="security.firewall.map.context.dev" type="service" id=".security.request_matcher.gOpgIHx"/>
         <argument key="security.firewall.map.context.main">null</argument>
       </argument>
@@ -6634,7 +6675,22 @@
         </service>
       </argument>
     </service>
-    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap"/>
+    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap">
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.S.FPR_b"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.I_Hqzgo"/>
+        <argument type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+    </service>
     <service id="security.context_listener" class="Symfony\Component\Security\Http\Firewall\ContextListener">
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.untracked_token_storage"/>
@@ -6732,6 +6788,7 @@
     </service>
     <service id="security.firewall.event_dispatcher_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection">
+        <argument key="api" type="service_closure" id="debug.security.event_dispatcher.api"/>
         <argument key="main" type="service_closure" id="debug.security.event_dispatcher.main"/>
       </argument>
     </service>
@@ -6748,6 +6805,7 @@
     </service>
     <service id="security.authenticator.managers_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection">
+        <argument key="api" type="service_closure" id="security.authenticator.manager.api"/>
         <argument key="main" type="service_closure" id="security.authenticator.manager.main"/>
       </argument>
     </service>
@@ -6939,9 +6997,12 @@
       <tag name="console.command" command="debug:firewall"/>
       <tag name="container.no_preload"/>
       <argument>%security.firewalls%</argument>
-      <argument type="service" id=".service_locator.bsoXAxw"/>
-      <argument type="service" id=".service_locator.xRvtKlk"/>
+      <argument type="service" id=".service_locator.4Jl3jDo"/>
+      <argument type="service" id=".service_locator.8_qPj7R"/>
       <argument type="collection">
+        <argument key="api" type="collection">
+          <argument type="service" id="debug.security.authenticator.jwt.api"/>
+        </argument>
         <argument key="main" type="collection"/>
       </argument>
       <argument>false</argument>
@@ -6954,9 +7015,150 @@
     </service>
     <service id="security.user.provider.concrete.app_user_provider" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider">
       <argument type="service" id="doctrine"/>
-      <argument>App\Entity\Users</argument>
+      <argument>App\Entity\User</argument>
       <argument>mail</argument>
       <argument>null</argument>
+    </service>
+    <service id="security.firewall.map.config.api_login" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig">
+      <argument>api_login</argument>
+      <argument>security.user_checker</argument>
+      <argument>.security.request_matcher.gcxynGs</argument>
+      <argument>false</argument>
+      <argument>false</argument>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument type="collection"/>
+      <argument>null</argument>
+      <argument>null</argument>
+    </service>
+    <service id=".security.request_matcher.wAZgplc" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
+      <argument>^/api/login$</argument>
+    </service>
+    <service id=".security.request_matcher.gcxynGs" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+      <argument type="collection">
+        <argument type="service" id=".security.request_matcher.wAZgplc"/>
+      </argument>
+    </service>
+    <service id="security.firewall.map.context.api_login" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
+      <argument type="iterator"/>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument type="service" id="security.firewall.map.config.api_login"/>
+    </service>
+    <service id="security.firewall.map.config.api" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig">
+      <argument>api</argument>
+      <argument>security.user_checker</argument>
+      <argument>.security.request_matcher.7hdBUZ0</argument>
+      <argument>true</argument>
+      <argument>false</argument>
+      <argument>security.user.provider.concrete.app_user_provider</argument>
+      <argument>api</argument>
+      <argument>Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler</argument>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument type="collection">
+        <argument>jwt</argument>
+      </argument>
+      <argument>null</argument>
+      <argument>null</argument>
+    </service>
+    <service id=".security.request_matcher.5n1UlhU" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
+      <argument>^/api/</argument>
+    </service>
+    <service id=".security.request_matcher.7hdBUZ0" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+      <argument type="collection">
+        <argument type="service" id=".security.request_matcher.5n1UlhU"/>
+      </argument>
+    </service>
+    <service id="security.listener.api.user_provider" class="Symfony\Component\Security\Http\EventListener\UserProviderListener">
+      <tag name="kernel.event_listener" dispatcher="debug.security.event_dispatcher.api" event="Symfony\Component\Security\Http\Event\CheckPassportEvent" priority="2048" method="checkPassport"/>
+      <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
+    </service>
+    <service id="security.user_checker.chain.api" class="Symfony\Component\Security\Core\User\ChainUserChecker">
+      <argument type="tagged_iterator" tag="security.user_checker.api"/>
+    </service>
+    <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener">
+      <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="security.untracked_token_storage"/>
+      <argument type="iterator">
+        <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
+      </argument>
+      <argument>api</argument>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="debug.security.event_dispatcher.api"/>
+      <argument type="service" id="security.authentication.trust_resolver"/>
+      <argument type="collection">
+        <argument type="service" id="security.token_storage"/>
+        <argument>enableUsageTracking</argument>
+      </argument>
+    </service>
+    <service id="security.listener.session.api" class="Symfony\Component\Security\Http\EventListener\SessionStrategyListener">
+      <tag name="kernel.event_subscriber" dispatcher="debug.security.event_dispatcher.api"/>
+      <argument type="service" id="security.authentication.session_strategy"/>
+    </service>
+    <service id="security.authenticator.jwt.api" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Authenticator\JWTAuthenticator">
+      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="lexik_jwt_authentication.extractor.chain_extractor"/>
+      <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
+      <argument type="service" id="translator.data_collector" on-invalid="null"/>
+    </service>
+    <service id="debug.security.authenticator.jwt.api" class="Symfony\Component\Security\Http\Authenticator\Debug\TraceableAuthenticator">
+      <argument type="service" id="security.authenticator.jwt.api"/>
+    </service>
+    <service id="security.authenticator.manager.api" class="Symfony\Component\Security\Http\Authentication\AuthenticatorManager">
+      <tag name="monolog.logger" channel="security"/>
+      <argument type="collection">
+        <argument type="service" id="debug.security.authenticator.jwt.api"/>
+      </argument>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="debug.security.event_dispatcher.api"/>
+      <argument>api</argument>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument>true</argument>
+      <argument>true</argument>
+      <argument type="collection"/>
+    </service>
+    <service id="debug.security.firewall.authenticator.api" class="Symfony\Component\Security\Http\Authenticator\Debug\TraceableAuthenticatorManagerListener">
+      <tag name="kernel.reset" method="reset"/>
+      <tag name="container.decorator" id="security.firewall.authenticator.api" inner="debug.security.firewall.authenticator.api.inner"/>
+      <argument type="service" id="debug.security.firewall.authenticator.api.inner"/>
+    </service>
+    <service id="security.listener.user_checker.api" class="Symfony\Component\Security\Http\EventListener\UserCheckerListener">
+      <tag name="kernel.event_subscriber" dispatcher="debug.security.event_dispatcher.api"/>
+      <argument type="service" id="security.user_checker"/>
+    </service>
+    <service id="security.exception_listener.api" class="Symfony\Component\Security\Http\Firewall\ExceptionListener">
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.authentication.trust_resolver"/>
+      <argument type="service" id="security.http_utils"/>
+      <argument>api</argument>
+      <argument type="service" id="lexik_jwt_authentication.handler.authentication_success"/>
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument>false</argument>
+    </service>
+    <service id=".service_locator.JimicQO" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="security.authenticator.jwt.api" type="service_closure" id="security.authenticator.jwt.api"/>
+      </argument>
+    </service>
+    <service id="security.firewall.map.context.api" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
+      <argument type="iterator">
+        <argument type="service" id="security.channel_listener"/>
+        <argument type="service" id="security.context_listener.0"/>
+        <argument type="service" id="debug.security.firewall.authenticator.api"/>
+        <argument type="service" id="security.access_listener"/>
+      </argument>
+      <argument type="service" id="security.exception_listener.api"/>
+      <argument>null</argument>
+      <argument type="service" id="security.firewall.map.config.api"/>
     </service>
     <service id="security.firewall.map.config.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig">
       <argument>dev</argument>
@@ -7009,7 +7211,7 @@
     <service id="security.user_checker.chain.main" class="Symfony\Component\Security\Core\User\ChainUserChecker">
       <argument type="tagged_iterator" tag="security.user_checker.main"/>
     </service>
-    <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener">
+    <service id="security.context_listener.1" class="Symfony\Component\Security\Http\Firewall\ContextListener">
       <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
       <tag name="container.hot_path"/>
       <argument type="service" id="security.untracked_token_storage"/>
@@ -7063,7 +7265,7 @@
     <service id="security.firewall.map.context.main" class="Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext">
       <argument type="iterator">
         <argument type="service" id="security.channel_listener"/>
-        <argument type="service" id="security.context_listener.0"/>
+        <argument type="service" id="security.context_listener.1"/>
         <argument type="service" id="debug.security.firewall.authenticator.main"/>
         <argument type="service" id="security.access_listener"/>
       </argument>
@@ -7072,11 +7274,26 @@
       <argument type="service" id="security.firewall.map.config.main"/>
       <argument type="service" id="security.untracked_token_storage"/>
     </service>
-    <service id=".service_locator.bsoXAxw" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.4Jl3jDo" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="security.firewall.map.context.api_login" type="service_closure" id="security.firewall.map.context.api_login"/>
+        <argument key="security.firewall.map.context.api" type="service_closure" id="security.firewall.map.context.api"/>
         <argument key="security.firewall.map.context.dev" type="service_closure" id="security.firewall.map.context.dev"/>
         <argument key="security.firewall.map.context.main" type="service_closure" id="security.firewall.map.context.main"/>
+      </argument>
+    </service>
+    <service id=".security.request_matcher..tvo6Vp" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
+      <argument>^/api/login</argument>
+    </service>
+    <service id=".security.request_matcher.S.FPR_b" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+      <argument type="collection">
+        <argument type="service" id=".security.request_matcher..tvo6Vp"/>
+      </argument>
+    </service>
+    <service id=".security.request_matcher.I_Hqzgo" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+      <argument type="collection">
+        <argument type="service" id=".security.request_matcher.5n1UlhU"/>
       </argument>
     </service>
     <service id="security.command.user_password_hash" class="Symfony\Component\PasswordHasher\Command\UserPasswordHashCommand">
@@ -7399,6 +7616,143 @@
       <tag name="kernel.event_listener" event="kernel.response" method="onResponse" priority="-10"/>
       <tag name="container.hot_path"/>
     </service>
+    <service id="lexik_jwt_authentication.jwt_manager" class="Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager" public="true">
+      <argument type="service" id="lexik_jwt_authentication.encoder.lcobucci"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument>username</argument>
+      <argument type="service" id="lexik_jwt_authentication.payload_enrichment"/>
+    </service>
+    <service id="lexik_jwt_authentication.payload_enrichment.random_jti_enrichment" class="Lexik\Bundle\JWTAuthenticationBundle\Services\PayloadEnrichment\RandomJtiEnrichment"/>
+    <service id="lexik_jwt_authentication.payload_enrichment" class="Lexik\Bundle\JWTAuthenticationBundle\Services\PayloadEnrichment\ChainEnrichment">
+      <argument type="collection"/>
+    </service>
+    <service id="lexik_jwt_authentication.key_loader.abstract" abstract="true">
+      <argument></argument>
+      <argument></argument>
+      <argument>%env(JWT_PASSPHRASE)%</argument>
+      <argument type="collection"/>
+    </service>
+    <service id="lexik_jwt_authentication.key_loader.raw" class="Lexik\Bundle\JWTAuthenticationBundle\Services\KeyLoader\RawKeyLoader">
+      <argument>%env(resolve:JWT_SECRET_KEY)%</argument>
+      <argument>%env(resolve:JWT_PUBLIC_KEY)%</argument>
+      <argument>%env(JWT_PASSPHRASE)%</argument>
+      <argument type="collection"/>
+    </service>
+    <service id="lexik_jwt_authentication.encoder.lcobucci" class="Lexik\Bundle\JWTAuthenticationBundle\Encoder\LcobucciJWTEncoder">
+      <argument type="service" id="lexik_jwt_authentication.jws_provider.lcobucci"/>
+    </service>
+    <service id="lexik_jwt_authentication.jws_provider.lcobucci" class="Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\LcobucciJWSProvider">
+      <argument type="service" id="lexik_jwt_authentication.key_loader.raw"/>
+      <argument>RS256</argument>
+      <argument>3600</argument>
+      <argument>0</argument>
+      <argument>false</argument>
+    </service>
+    <service id="lexik_jwt_authentication.handler.authentication_success" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler">
+      <tag name="monolog.logger" channel="security"/>
+      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="collection"/>
+      <argument>true</argument>
+    </service>
+    <service id="lexik_jwt_authentication.handler.authentication_failure" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler">
+      <tag name="monolog.logger" channel="security"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="translator.data_collector" on-invalid="null"/>
+    </service>
+    <service id="lexik_jwt_authentication.security.jwt_authenticator" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Authenticator\JWTAuthenticator" abstract="true">
+      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="lexik_jwt_authentication.extractor.chain_extractor"/>
+      <argument></argument>
+      <argument type="service" id="translator.data_collector" on-invalid="null"/>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.chain_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\ChainTokenExtractor">
+      <argument type="collection">
+        <argument type="service" id="lexik_jwt_authentication.extractor.authorization_header_extractor"/>
+      </argument>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.authorization_header_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor">
+      <argument>Bearer</argument>
+      <argument>Authorization</argument>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.query_parameter_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\QueryParameterTokenExtractor">
+      <argument></argument>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.cookie_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\CookieTokenExtractor">
+      <argument></argument>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.split_cookie_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\SplitCookieExtractor">
+      <argument></argument>
+    </service>
+    <service id="lexik_jwt_authentication.security.jwt_user_provider" class="Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserProvider">
+      <argument></argument>
+    </service>
+    <service id="lexik_jwt_authentication.check_config_command" class="Lexik\Bundle\JWTAuthenticationBundle\Command\CheckConfigCommand">
+      <tag name="console.command" command="lexik:jwt:check-config"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="lexik_jwt_authentication.key_loader.raw"/>
+      <argument>RS256</argument>
+      <call method="setName">
+        <argument>lexik:jwt:check-config</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Checks that the bundle is properly configured.</argument>
+      </call>
+    </service>
+    <service id="lexik_jwt_authentication.migrate_config_command" class="Lexik\Bundle\JWTAuthenticationBundle\Command\MigrateConfigCommand">
+      <tag name="console.command" command="lexik:jwt:migrate-config"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="lexik_jwt_authentication.key_loader.raw"/>
+      <argument>%env(JWT_PASSPHRASE)%</argument>
+      <argument>RS256</argument>
+      <call method="setName">
+        <argument>lexik:jwt:migrate-config</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Migrate LexikJWTAuthenticationBundle configuration to the Web-Token one.</argument>
+      </call>
+    </service>
+    <service id="lexik_jwt_authentication.enable_encryption_config_command" class="Lexik\Bundle\JWTAuthenticationBundle\Command\EnableEncryptionConfigCommand">
+      <tag name="console.command" command="lexik:jwt:enable-encryption"/>
+      <tag name="container.no_preload"/>
+      <argument>null</argument>
+      <call method="setName">
+        <argument>lexik:jwt:enable-encryption</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Enable Web-Token encryption support.</argument>
+      </call>
+    </service>
+    <service id="lexik_jwt_authentication.generate_token_command" class="Lexik\Bundle\JWTAuthenticationBundle\Command\GenerateTokenCommand" public="true">
+      <tag name="console.command" command="lexik:jwt:generate-token"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
+      <argument type="iterator">
+        <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
+      </argument>
+      <call method="setName">
+        <argument>lexik:jwt:generate-token</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Generates a JWT token for a given user.</argument>
+      </call>
+    </service>
+    <service id="lexik_jwt_authentication.generate_keypair_command" class="Lexik\Bundle\JWTAuthenticationBundle\Command\GenerateKeyPairCommand">
+      <tag name="console.command" command="lexik:jwt:generate-keypair"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="filesystem"/>
+      <argument>%env(resolve:JWT_SECRET_KEY)%</argument>
+      <argument>%env(resolve:JWT_PUBLIC_KEY)%</argument>
+      <argument>%env(JWT_PASSPHRASE)%</argument>
+      <argument>RS256</argument>
+      <call method="setName">
+        <argument>lexik:jwt:generate-keypair</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Generate public/private keys for use in your application.</argument>
+      </call>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AuthController" class="App\Controller\AuthController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7433,6 +7787,88 @@
         <argument key="defined" type="service_closure" id="container.env_var_processor"/>
         <argument key="urlencode" type="service_closure" id="container.env_var_processor"/>
       </argument>
+    </service>
+    <service id="debug.security.event_dispatcher.api" class="Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher">
+      <tag name="security.event_dispatcher.api">event_dispatcher.dispatcher</tag>
+      <tag name="monolog.logger" channel="event"/>
+      <tag name="kernel.reset" method="reset"/>
+      <tag name="container.decorator" id="security.event_dispatcher.api" inner="debug.security.event_dispatcher.api.inner"/>
+      <argument type="service" id="debug.security.event_dispatcher.api.inner"/>
+      <argument type="service" id="debug.stopwatch"/>
+      <argument type="service" id="monolog.logger.event" on-invalid="null"/>
+      <argument type="service" id="request_stack" on-invalid="null"/>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.api.user_provider"/>
+          <argument>checkPassport</argument>
+        </argument>
+        <argument>2048</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\LoginSuccessEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.session.api"/>
+          <argument>onSuccessfulLogin</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.user_checker.api"/>
+          <argument>preCheckCredentials</argument>
+        </argument>
+        <argument>256</argument>
+      </call>
+      <call method="addListener">
+        <argument>security.authentication.success</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.user_checker.api"/>
+          <argument>postCheckCredentials</argument>
+        </argument>
+        <argument>256</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.user_provider"/>
+          <argument>checkPassport</argument>
+        </argument>
+        <argument>1024</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.check_authenticator_credentials"/>
+          <argument>checkPassport</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\LoginSuccessEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.password_migrating"/>
+          <argument>onLoginSuccess</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.listener.csrf_protection"/>
+          <argument>checkPassport</argument>
+        </argument>
+        <argument>512</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\LogoutEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="security.logout.listener.csrf_token_clearing"/>
+          <argument>onLogout</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
     </service>
     <service id="debug.security.event_dispatcher.main" class="Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher">
       <tag name="security.event_dispatcher.main">event_dispatcher.dispatcher</tag>
@@ -8610,10 +9046,11 @@
         <argument key="cache.app" type="service_closure" id="cache.app.taggable"/>
       </argument>
     </service>
-    <service id=".service_locator.xRvtKlk" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.8_qPj7R" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="event_dispatcher" type="service_closure" id="debug.event_dispatcher"/>
+        <argument key="security.event_dispatcher.api" type="service_closure" id="debug.security.event_dispatcher.api"/>
         <argument key="security.event_dispatcher.main" type="service_closure" id="debug.security.event_dispatcher.main"/>
       </argument>
     </service>
@@ -8912,9 +9349,13 @@
         </service>
       </argument>
     </service>
+    <service id="debug.security.firewall.authenticator.api.inner" class="Symfony\Component\Security\Http\Firewall\AuthenticatorManagerListener">
+      <argument type="service" id="security.authenticator.manager.api"/>
+    </service>
     <service id="debug.security.firewall.authenticator.main.inner" class="Symfony\Component\Security\Http\Firewall\AuthenticatorManagerListener">
       <argument type="service" id="security.authenticator.manager.main"/>
     </service>
+    <service id="debug.security.event_dispatcher.api.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id="debug.security.event_dispatcher.main.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -9433,6 +9874,41 @@
       <argument>false</argument>
       <argument type="service_closure" id="security.command.user_password_hash"/>
     </service>
+    <service id=".lexik_jwt_authentication.check_config_command.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>lexik:jwt:check-config</argument>
+      <argument type="collection"/>
+      <argument>Checks that the bundle is properly configured.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="lexik_jwt_authentication.check_config_command"/>
+    </service>
+    <service id=".lexik_jwt_authentication.migrate_config_command.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>lexik:jwt:migrate-config</argument>
+      <argument type="collection"/>
+      <argument>Migrate LexikJWTAuthenticationBundle configuration to the Web-Token one.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="lexik_jwt_authentication.migrate_config_command"/>
+    </service>
+    <service id=".lexik_jwt_authentication.enable_encryption_config_command.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>lexik:jwt:enable-encryption</argument>
+      <argument type="collection"/>
+      <argument>Enable Web-Token encryption support.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="lexik_jwt_authentication.enable_encryption_config_command"/>
+    </service>
+    <service id=".lexik_jwt_authentication.generate_token_command.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>lexik:jwt:generate-token</argument>
+      <argument type="collection"/>
+      <argument>Generates a JWT token for a given user.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="lexik_jwt_authentication.generate_token_command"/>
+    </service>
+    <service id=".lexik_jwt_authentication.generate_keypair_command.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>lexik:jwt:generate-keypair</argument>
+      <argument type="collection"/>
+      <argument>Generate public/private keys for use in your application.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="lexik_jwt_authentication.generate_keypair_command"/>
+    </service>
     <service id=".maker.auto_command.make_auth.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>make:auth</argument>
       <argument type="collection"/>
@@ -9629,7 +10105,7 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.MA4dmv9"/>
+      <argument type="service" id=".service_locator.l2qZsDU"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -9719,6 +10195,11 @@
         <argument key="debug:firewall">security.command.debug_firewall</argument>
         <argument key="security:hash-password">security.command.user_password_hash</argument>
         <argument key="doctrine:fixtures:load">doctrine.fixtures_load_command</argument>
+        <argument key="lexik:jwt:check-config">lexik_jwt_authentication.check_config_command</argument>
+        <argument key="lexik:jwt:migrate-config">lexik_jwt_authentication.migrate_config_command</argument>
+        <argument key="lexik:jwt:enable-encryption">lexik_jwt_authentication.enable_encryption_config_command</argument>
+        <argument key="lexik:jwt:generate-token">lexik_jwt_authentication.generate_token_command</argument>
+        <argument key="lexik:jwt:generate-keypair">lexik_jwt_authentication.generate_keypair_command</argument>
         <argument key="make:auth">maker.auto_command.make_auth</argument>
         <argument key="make:command">maker.auto_command.make_command</argument>
         <argument key="make:twig-component">maker.auto_command.make_twig_component</argument>
@@ -9751,7 +10232,7 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.MA4dmv9" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.l2qZsDU" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
@@ -9842,6 +10323,11 @@
         <argument key="security.command.debug_firewall" type="service_closure" id=".security.command.debug_firewall.lazy"/>
         <argument key="security.command.user_password_hash" type="service_closure" id=".security.command.user_password_hash.lazy"/>
         <argument key="doctrine.fixtures_load_command" type="service_closure" id="doctrine.fixtures_load_command"/>
+        <argument key="lexik_jwt_authentication.check_config_command" type="service_closure" id=".lexik_jwt_authentication.check_config_command.lazy"/>
+        <argument key="lexik_jwt_authentication.migrate_config_command" type="service_closure" id=".lexik_jwt_authentication.migrate_config_command.lazy"/>
+        <argument key="lexik_jwt_authentication.enable_encryption_config_command" type="service_closure" id=".lexik_jwt_authentication.enable_encryption_config_command.lazy"/>
+        <argument key="lexik_jwt_authentication.generate_token_command" type="service_closure" id=".lexik_jwt_authentication.generate_token_command.lazy"/>
+        <argument key="lexik_jwt_authentication.generate_keypair_command" type="service_closure" id=".lexik_jwt_authentication.generate_keypair_command.lazy"/>
         <argument key="maker.auto_command.make_auth" type="service_closure" id=".maker.auto_command.make_auth.lazy"/>
         <argument key="maker.auto_command.make_command" type="service_closure" id=".maker.auto_command.make_command.lazy"/>
         <argument key="maker.auto_command.make_twig_component" type="service_closure" id=".maker.auto_command.make_twig_component.lazy"/>
@@ -9963,7 +10449,7 @@
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
-    <service id=".service_locator.Nsv4T6i" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.0mTqotR" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="Symfony\Bridge\Twig\Extension\CsrfRuntime" type="service_closure" id="twig.runtime.security_csrf"/>
@@ -9972,8 +10458,10 @@
         <argument key="Symfony\Component\Form\FormRenderer" type="service_closure" id="twig.form.renderer"/>
         <argument key="Symfony\Bridge\Twig\Extension\ImportMapRuntime" type="service_closure" id="twig.runtime.importmap"/>
         <argument key="Symfony\UX\StimulusBundle\Twig\UxControllersTwigRuntime" type="service_closure" id="stimulus.ux_controllers_twig_runtime"/>
+        <argument key="Symfony\UX\Turbo\Twig\TurboRuntime" type="service_closure" id="turbo.twig.runtime"/>
       </argument>
     </service>
+    <service id="Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager" alias="lexik_jwt_authentication.jwt_manager"/>
     <service id="App\Kernel" alias="kernel" public="true"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface" alias="parameter_bag"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface" alias="parameter_bag"/>
@@ -10104,12 +10592,22 @@
     <service id="security.firewall" alias="debug.security.firewall"/>
     <service id="security.user_providers" alias="security.user.provider.concrete.app_user_provider"/>
     <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="security.user.provider.concrete.app_user_provider"/>
+    <service id="security.authentication.session_strategy.api" alias="security.authentication.session_strategy"/>
+    <service id="security.user_checker.api" alias="security.user_checker"/>
     <service id="security.authentication.session_strategy.main" alias="security.authentication.session_strategy"/>
     <service id="security.user_checker.main" alias="security.user_checker"/>
-    <service id="security.firewall.context_locator" alias=".service_locator.bsoXAxw"/>
+    <service id="security.firewall.context_locator" alias=".service_locator.4Jl3jDo"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
+    <service id="Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface" alias="lexik_jwt_authentication.jwt_manager"/>
+    <service id="Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\JWSProviderInterface" alias="lexik_jwt_authentication.jws_provider.lcobucci"/>
+    <service id="Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler" alias="lexik_jwt_authentication.handler.authentication_success"/>
+    <service id="Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler" alias="lexik_jwt_authentication.handler.authentication_failure"/>
+    <service id="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface" alias="lexik_jwt_authentication.extractor.chain_extractor"/>
+    <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.lcobucci" public="true"/>
+    <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
+    <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
     <service id="argument_resolver.controller_locator" alias=".service_locator.M4UHJc9"/>
@@ -10151,7 +10649,9 @@
     <service id="twig.error_renderer.html.inner" alias="error_handler.error_renderer.html"/>
     <service id="turbo.broadcaster.imux" alias="turbo.broadcaster.action_renderer"/>
     <service id="security.access.decision_manager" alias="debug.security.access.decision_manager"/>
+    <service id="security.firewall.authenticator.api" alias="debug.security.firewall.authenticator.api"/>
     <service id="security.firewall.authenticator.main" alias="debug.security.firewall.authenticator.main"/>
+    <service id="security.event_dispatcher.api" alias="debug.security.event_dispatcher.api"/>
     <service id="security.event_dispatcher.main" alias="debug.security.event_dispatcher.main"/>
     <service id="messenger.bus.default" alias="debug.traced.messenger.bus.default"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
