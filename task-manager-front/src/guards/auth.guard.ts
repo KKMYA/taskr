@@ -1,31 +1,24 @@
-import { CanActivateFn, Router  } from '@angular/router';
-import { inject } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
-
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);  // Injecter la plateforme
+  let token = null;
 
-  const token = localStorage.getItem('jwt_token');
-
-  if (token) {
-    // Décoder le token et vérifier sa validité
-    const decodedToken: any = jwtDecode(token);
-    const expirationDate = decodedToken.exp * 1000;
-    const currentDate = new Date().getTime();
-
-    if (currentDate > expirationDate) {
-      // Si le token est expiré, on le supprime et on redirige vers la page de login
-      localStorage.removeItem('jwt_token');
-      router.navigate(['/login']);
-      return false;
-    }
-
-    // Si le token est valide, permettre l'accès à la route
-    return true;
+  // Vérifie si l'application est executée sur un navigateur
+  // Permet l'accès au local storage
+  if (isPlatformBrowser(platformId)) {
+    token = localStorage.getItem('jwt_token');
   }
 
-  // Si le token n'est pas présent, rediriger vers la page de login
-  router.navigate(['/login']);
-  return false;
+  if (token) {
+    // Si un token existe, redirige vers la page d'accueil
+    router.navigate(['/']);
+    return false;  // Retourne faux pour interdire l'accès
+  }
+
+  // Si aucun token n'existe, permettre l'accès à la route en retournant true
+  return true;
 };
