@@ -14,3 +14,7 @@ a9b2fd,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744393382,,200,request
 3dff17,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744394803,,200,request
 147a7a,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744394888,,200,request
 490c30,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744394931,,200,request
+b24bca,127.0.0.1,OPTIONS,https://127.0.0.1:8000/api/login,1744623019,,200,request
+32fd1b,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744623025,,200,request
+a300ce,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744623026,,200,request
+9bf4cb,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744624825,,200,request
