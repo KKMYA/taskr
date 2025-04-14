@@ -1,16 +1,23 @@
 <header>
-    <div id="container-1-header">
-      <a href="/">
-        <img id="logo-header"alt="logo-taskr" src="img/logotaskr.png"  href="/create-account">
+  <div id="container-1-header">
+    <a href="/">
+      <img id="logo-header" alt="logo-taskr" src="img/logotaskr.png" />
+    </a>
+  </div>
+  <div id="container-2-header">
+    <ul id="list-header">
+      <li *ngIf="isAuthenticated">Mon profil</li>
+      <li *ngIf="isAuthenticated">Gérer mes tâches</li>
+      
+      <!-- Afficher le lien de connexion uniquement si l'utilisateur n'est pas authentifié -->
+      <a id="login-link" href="/login" *ngIf="!isAuthenticated"> 
+        <li>Se connecter</li>
       </a>
-    </div>
-    <div id="container-2-header">
-      <ul id="list-header">
-        <li>Mon profil</li>
-        <li>Gérer mes tâches</li>
-        <a id="login-link" href="/login"> 
-          <li>Se connecter </li>
-        </a>
-      </ul>
-    </div>
-  </header>
+
+      <!-- Afficher le bouton de déconnexion si l'utilisateur est connecté -->
+      <a id="logout-link" href="#" *ngIf="isAuthenticated" (click)="logout()">
+        <li>Se déconnecter</li>
+      </a>
+    </ul>
+  </div>
+</header>

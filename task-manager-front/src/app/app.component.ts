@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -24,4 +25,14 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     <app-footer></app-footer>
   `,
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  isAuthenticated: boolean = false;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.isAuthenticated.subscribe(authenticated => {
+      this.isAuthenticated = authenticated;
+    });
+  }
+}
