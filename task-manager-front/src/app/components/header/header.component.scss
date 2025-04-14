@@ -24,25 +24,31 @@ header {
     align-items: center;
     justify-content: center;
   }
-  
-  
-    #container-2-header {
-      width: 100%;
-      position: relative;
-      background-color: #855732a4;
-      padding: 15px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      clip-path: ellipse(100% 90% at 50% 0%);
-      height: 100px;
-    }
+
+  #container-2-header {
+    width: 100%;
+    position: relative;
+    background-color: #855732a4;
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    clip-path: ellipse(100% 90% at 50% 0%);
+    height: 100px;
+  }
+
   #login-link{
     text-decoration: none;
     color: inherit;
   }
+
+  #logout-link{
+    text-decoration: none;
+    color: inherit;
+  }
+
   #list-header {
     font-weight: bold;
     list-style-type: none;

@@ -9,9 +9,11 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AuthService {
   private readonly loginUrl = 'https://127.0.0.1:8000/api/login';
-  private readonly isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkToken());  // État de l'authentification
+  private readonly isAuthenticatedSubject = new BehaviorSubject<boolean>(false);  // Initialisé à false
 
-  constructor(private readonly http: HttpClient, @Inject(PLATFORM_ID) private readonly platformId: Object) {}
+  constructor(private readonly http: HttpClient, @Inject(PLATFORM_ID) private readonly platformId: Object) {
+    this.initialize();
+  }
 
   // Méthode pour vérifier la présence du token et l'état de l'authentification
   private checkToken(): boolean {
@@ -30,6 +32,12 @@ export class AuthService {
       return currentDate <= expirationDate;
     }
     return false;
+  }
+
+  // Méthode pour initialiser l'état de l'authentification
+  private initialize() {
+    const isAuthenticated = this.checkToken();
+    this.isAuthenticatedSubject.next(isAuthenticated);  // Met à jour le BehaviorSubject
   }
 
   // Méthode pour se connecter
