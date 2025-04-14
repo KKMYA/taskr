@@ -3,7 +3,7 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -24,8 +24,6 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
-  
-  
 
   onSubmit() {
     const email = this.loginForm.get('email')?.value;
@@ -44,9 +42,8 @@ export class LoginComponent {
         }
       );
     } else {
-      console.log('Invalid form data');
-    }
-      
+        console.log('Invalid form data');
+      }
     }
   }
   
