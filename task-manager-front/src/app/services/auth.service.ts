@@ -51,6 +51,7 @@ export class AuthService {
       localStorage.removeItem('jwt_token');  // Supprime le token
     }
     this.isAuthenticatedSubject.next(false);  // Met à jour l'état d'authentification
+    window.location.reload();
   }
 
   // Méthode pour vérifier si l'utilisateur est authentifié
