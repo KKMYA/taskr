@@ -8,7 +8,8 @@ export const authGuard: CanActivateFn = () => {
   let token = null;
 
   // Vérifie si l'application est executée sur un navigateur
-  // Permet l'accès au local storage
+  // Permet l'accès au local storage car sinon la vérification du token s'effectue au rendu serveur 
+  // et le localStorage n'est pas encore disponible
   if (isPlatformBrowser(platformId)) {
     token = localStorage.getItem('jwt_token');
   }
