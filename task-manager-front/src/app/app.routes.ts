@@ -6,7 +6,7 @@ import { CguComponent } from './components/cgu/cgu.component';
 import { authGuard } from '../guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: HomepageComponent},
+    { path: '', component: HomepageComponent, canActivate: [authGuard]},
     { path: 'login', component: LoginComponent, canActivate: [authGuard] },
     { path: 'terms', component: CguComponent},
     { path: 'create-account', component: AccountCreationComponent},

@@ -35,7 +35,6 @@ export class LoginComponent {
           console.log('User logged in successfully', response);
           localStorage.setItem('jwt_token', response.token);
           console.log(localStorage.getItem('jwt_token'));
-          // this.router.navigate(['/']);
           window.location.reload();
         },
         (error) => {
