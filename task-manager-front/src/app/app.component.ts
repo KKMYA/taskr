@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  styleUrls: ['./app.component.scss'],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
