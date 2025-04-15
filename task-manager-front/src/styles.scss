@@ -19,3 +19,18 @@ body{
   .main-content {
     flex: 1; /* Pousse le footer vers le bas */
   }
+
+      /* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Application des animations */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
