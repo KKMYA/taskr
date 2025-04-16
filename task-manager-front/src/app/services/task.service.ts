@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TaskService {
-  private readonly apiUrl = 'http://localhost:8000/api/tasks';
+  private readonly apiUrl = 'https://localhost:8000/api/tasks';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -16,9 +16,8 @@ export class TaskService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    console.log(token);
-    console.log(headers);
 
+    console.log(this.http.get(this.apiUrl, { headers }));
     return this.http.get(this.apiUrl, { headers });
   }
 }
