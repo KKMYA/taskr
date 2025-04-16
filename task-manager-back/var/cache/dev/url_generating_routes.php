@@ -19,7 +19,9 @@ return [
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     'api_login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/api/login']], [], [], []],
+    'api_tasks_list' => [[], ['_controller' => 'App\\Controller\\TaskController::index'], [], [['text', '/api/tasks']], [], [], []],
     'api_test' => [[], ['_controller' => 'App\\Controller\\TestController::test'], [], [['text', '/api/test']], [], [], []],
     'App\Controller\AuthController::login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/api/login']], [], [], []],
+    'App\Controller\TaskController::index' => [[], ['_controller' => 'App\\Controller\\TaskController::index'], [], [['text', '/api/tasks']], [], [], []],
     'App\Controller\TestController::test' => [[], ['_controller' => 'App\\Controller\\TestController::test'], [], [['text', '/api/test']], [], [], []],
 ];
