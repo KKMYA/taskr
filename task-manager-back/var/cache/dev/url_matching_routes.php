@@ -16,6 +16,7 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/api/login' => [[['_route' => 'api_login', '_controller' => 'App\\Controller\\AuthController::login'], null, ['POST' => 0, 'OPTIONS' => 1], null, false, false, null]],
+        '/api/tasks' => [[['_route' => 'api_tasks_list', '_controller' => 'App\\Controller\\TaskController::index'], null, ['GET' => 0], null, false, false, null]],
         '/api/test' => [[['_route' => 'api_test', '_controller' => 'App\\Controller\\TestController::test'], null, ['GET' => 0], null, false, false, null]],
     ],
     [ // $regexpList
