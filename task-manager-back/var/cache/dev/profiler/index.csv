@@ -10,3 +10,11 @@ d4c598,127.0.0.1,GET,http://localhost:8000/api/tasks,1744821330,,401,request
 d433d3,127.0.0.1,OPTIONS,https://127.0.0.1:8000/api/login,1744821370,,200,request
 afe883,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744821371,,200,request
 bac3ba,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744821528,,200,request
+de61b9,127.0.0.1,OPTIONS,https://localhost:8000/api/tasks,1744834314,,200,request
+5e0553,127.0.0.1,OPTIONS,https://127.0.0.1:8000/api/login,1744834317,,200,request
+590f02,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744834322,,200,request
+dbf410,127.0.0.1,OPTIONS,https://localhost:8000/api/tasks,1744834323,,200,request
+b9661a,127.0.0.1,GET,https://localhost:8000/api/tasks,1744834324,,200,request
+94a42b,127.0.0.1,GET,https://localhost:8000/api/tasks,1744834358,,200,request
+875bab,127.0.0.1,GET,https://localhost:8000/api/tasks,1744834393,,200,request
+60b4d5,127.0.0.1,GET,https://localhost:8000/api/tasks,1744834395,,200,request
