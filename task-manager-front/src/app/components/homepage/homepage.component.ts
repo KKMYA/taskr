@@ -15,6 +15,7 @@ export class HomepageComponent implements OnInit {
     this.taskService.getUserTasks().subscribe({
       next: (data) => {
         this.tasks = data;
+        console.log(this.tasks)
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des tâches :', err);

@@ -17,7 +17,6 @@ export class TaskService {
       Authorization: `Bearer ${token}`
     });
 
-    console.log(this.http.get(this.apiUrl, { headers }));
     return this.http.get(this.apiUrl, { headers });
   }
 }
