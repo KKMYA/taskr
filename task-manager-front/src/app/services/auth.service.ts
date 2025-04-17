@@ -51,7 +51,7 @@ export class AuthService {
       localStorage.removeItem('jwt_token');  // Supprime le token
     }
     this.isAuthenticatedSubject.next(false);  // Met à jour l'état d'authentification
-    window.location.reload();
+    window.location.reload(); // Recharge la page pour que le AuthGuard redirige l'utilisateur sur la page correspondant à son état
   }
 
   // Méthode pour vérifier si l'utilisateur est authentifié
