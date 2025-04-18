@@ -47,23 +47,18 @@
       .task-status {
         font-weight: bold;
         padding: 5px 10px;
-        border-radius: 20px;
+        border-radius: 5px;
       }
-  
-      .task-status.pending {
-        background-color: #f0ad4e;
-        color: #fff;
+      
+      .task-status.done {
+        background-color: #28a745;
+        color: white;
       }
-  
-      .task-status.in-progress {
-        background-color: #5bc0de;
-        color: #fff;
-      }
-  
-      .task-status.completed {
-        background-color: #5cb85c;
-        color: #fff;
-      }
+      
+      .task-status.todo {
+        background-color: #ffc107;
+        color: black;
+      }      
   
       .view-details-btn {
         background-color: #855732a4;

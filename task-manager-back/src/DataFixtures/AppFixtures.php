@@ -56,10 +56,11 @@ class AppFixtures extends Fixture
         }
 
         // === 30 TÂCHES ASSOCIÉES À DES UTILISATEURS ALÉATOIRES ===
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             $task = new Task();
             $task->setTitle($faker->sentence(4));
-            $task->setDescription($faker->optional()->paragraph);
+            $description = $faker->optional()->paragraph;
+            $task->setDescription($description ? substr($description, 0, 255) : null);
             $task->setIsDone($faker->boolean(30));
             $task->setCreatedAt(\DateTimeImmutable::createFromMutable(
                 $faker->dateTimeBetween('-2 months', 'now')
