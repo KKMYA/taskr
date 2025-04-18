@@ -63,3 +63,13 @@ a9680e,127.0.0.1,OPTIONS,https://localhost:8000/api/tasks,1744882877,,200,reques
 623438,127.0.0.1,GET,https://localhost:8000/api/tasks,1744882878,,200,request
 c4efe8,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744882908,,200,request
 402c09,127.0.0.1,GET,https://localhost:8000/api/tasks,1744882908,,200,request
+2be2b3,127.0.0.1,OPTIONS,https://localhost:8000/api/tasks,1744970060,,200,request
+74d77a,127.0.0.1,OPTIONS,https://localhost:8000/api/tasks,1744970062,,200,request
+da931c,127.0.0.1,GET,https://localhost:8000/api/tasks,1744970064,,401,request
+bdf173,127.0.0.1,OPTIONS,https://127.0.0.1:8000/api/login,1744970071,,200,request
+52c630,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1744970075,,200,request
+af1904,127.0.0.1,GET,https://localhost:8000/api/tasks,1744970077,,200,request
+721a19,127.0.0.1,GET,https://localhost:8000/api/tasks,1744970700,,200,request
+a3c396,127.0.0.1,GET,https://localhost:8000/api/tasks,1744970736,,200,request
+01a722,127.0.0.1,OPTIONS,https://localhost:8000/api/tasks,1744971166,,200,request
+dd38b6,127.0.0.1,GET,https://localhost:8000/api/tasks,1744971167,,200,request
