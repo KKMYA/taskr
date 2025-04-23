@@ -19,24 +19,24 @@ taskr/
 
 ## 1. Backend (Symfony)
 
-``cd task-manager-back/
-composer install
-cp .env.example .env
-php bin/console doctrine:database:create
-php bin/console doctrine:migrations:migrate
-symfony server:start``
+``cd task-manager-back/``
+``composer install``
+``cp .env.example .env``
+``php bin/console doctrine:database:create``
+``php bin/console doctrine:migrations:migrate``
+``symfony server:start``
 
 
 ### Configuration :
 
 Ouvre le fichier .env et configure ta base de données, ex. :
-DATABASE_URL="postgresql://user:password@127.0.0.1:5432/taskr"
+``DATABASE_URL="postgresql://user:password@127.0.0.1:5432/taskr"``
 
 ### Génération des clés JWT :
 
-``mkdir -p config/jwt
-openssl genrsa -out config/jwt/private.pem -aes256 4096
-openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem``
+``mkdir -p config/jwt``
+``openssl genrsa -out config/jwt/private.pem -aes256 4096``
+``openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem``
 
 Tu peux définir la passphrase dans .env :
 
@@ -53,11 +53,10 @@ php bin/console doctrine:migrations:migrate``
 
 
 ## 2. Frontend (Angular)
-``
-cd task-manager-front/
-npm install
-ng serve
-``
+``cd task-manager-front/``
+``npm install``
+``ng serve``
+
 
 📦 Fonctionnalités
 
