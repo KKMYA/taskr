@@ -10,11 +10,31 @@ TaskR est une application web de gestion de tâches, développée avec Angular e
 
 ## 📁 Structure du projet
 ```
-  taskr/
-      |
-      ├── task-manager-front/ # Application Angular 
-      |
-      └── task-manager-back/ # API Symfony
+taskr/
+│
+├── task-manager-front/           # Application Angular
+│   ├── src/                      # Code source Angular
+│   │   ├── app/                  # Composants, services, modules
+│   │   └── assets/              # Images, icônes, styles statiques
+│   ├── angular.json              # Configuration Angular CLI
+│   ├── package.json              # Dépendances npm
+│   └── tsconfig.json             # Configuration TypeScript
+│
+└── task-manager-back/            # API Symfony
+    ├── src/                      # Code source PHP
+    │   ├── Controller/          # Contrôleurs d’API REST
+    │   ├── Entity/              # Entités Doctrine
+    │   ├── Repository/          # Repositories Doctrine
+    │   └── DataFixtures/        # Fixtures pour tests/démo
+    ├── config/                   # Configuration Symfony
+    │   ├── packages/            # Configurations des bundles
+    │   └── routes.yaml          # Fichier de routes
+    ├── migrations/              # Migrations Doctrine
+    ├── templates/               # Templates Twig si utilisés
+    ├── composer.json            # Dépendances PHP
+    ├── .env.example             # Exemple de config d’environnement
+    └── symfony.lock             # Lockfile des dépendances Symfony
+
 ```
 
 ## 🚀 Lancer le projet en local
