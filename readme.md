@@ -84,6 +84,7 @@ php bin/console doctrine:migrations:migrate
 symfony server:start
 ```
 
+---
 
 ## 2. Frontend (Angular)
 ```
