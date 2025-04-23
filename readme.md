@@ -90,7 +90,7 @@ ng serve
 ```
 
 
-📦 Fonctionnalités
+#📦 Fonctionnalités
 
 - ✅ Authentification JWT
 
@@ -100,9 +100,10 @@ ng serve
 
 - ✅ Interface responsive
 
-🔐 Sécurité
+# 🔐 Sécurité
 
 - Les fichiers .env, les clés JWT (private.pem, public.pem), vendor/, var/, etc. sont exclus du dépôt via .gitignore.
 
-🧑‍💻 Développement
+# 🧑‍💻 Développement
+
 Ce projet est en cours de développement.
