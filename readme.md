@@ -68,7 +68,7 @@ openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 Then add the passphrase to your .env if needed :
 
 ```
-JWT_PASSPHRASE=ta-passphrase
+JWT_PASSPHRASE=your-passphrase
 ```
 
 ### Database initialization :
