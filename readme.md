@@ -30,7 +30,6 @@ taskr/
     │   ├── packages/            # Configurations des bundles
     │   └── routes.yaml          # Fichier de routes
     ├── migrations/              # Migrations Doctrine
-    ├── templates/               # Templates Twig si utilisés
     ├── composer.json            # Dépendances PHP
     ├── .env.example             # Exemple de config d’environnement
     └── symfony.lock             # Lockfile des dépendances Symfony
@@ -52,32 +51,43 @@ symfony server:start
 ### Configuration :
 
 Ouvre le fichier .env et configure ta base de données, ex. :
-``DATABASE_URL="postgresql://user:password@127.0.0.1:5432/taskr"``
+```
+DATABASE_URL="postgresql://user:password@127.0.0.1:5432/taskr"
+```
 
 ### Génération des clés JWT :
-
-``mkdir -p config/jwt``
-``openssl genrsa -out config/jwt/private.pem -aes256 4096``
-``openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem``
+```
+mkdir -p config/jwt
+openssl genrsa -out config/jwt/private.pem -aes256 4096
+openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+```
 
 Tu peux définir la passphrase dans .env :
 
-``JWT_PASSPHRASE=ta-passphrase``
+```
+JWT_PASSPHRASE=ta-passphrase
+```
 
 ### Initialisation de la base de données :
 
-``php bin/console doctrine:database:create
-php bin/console doctrine:migrations:migrate``
+```
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+```
 
 ### Lancer le serveur : 
 
-``symfony server:start``
+```
+symfony server:start
+```
 
 
 ## 2. Frontend (Angular)
-``cd task-manager-front/``
-``npm install``
-``ng serve``
+```
+cd task-manager-front/
+npm install
+ng serve
+```s
 
 
 📦 Fonctionnalités
