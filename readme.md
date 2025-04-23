@@ -12,9 +12,6 @@ TaskR is a web application for task management, built with Angular for the front
 
 ## 📁 Project Structure
 
-
-
-## 📁 Structure du projet
 ```
 taskr/
 │
