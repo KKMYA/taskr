@@ -87,7 +87,7 @@ symfony server:start
 cd task-manager-front/
 npm install
 ng serve
-```s
+```
 
 
 📦 Fonctionnalités
