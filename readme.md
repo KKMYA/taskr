@@ -37,6 +37,7 @@ taskr/
     ├── .env.example              # Environment configuration example
     └── symfony.lock              # Symfony dependencies lockfile
 ```
+---
 
 ## 🚀 Run the project locally
 
@@ -91,6 +92,7 @@ npm install
 ng serve
 ```
 
+---
 
 #📦 Features
 
