@@ -27,12 +27,12 @@ php bin/console doctrine:migrations:migrate
 symfony server:start``
 
 
-###Configuration :
+### Configuration :
 
 Ouvre le fichier .env et configure ta base de données, ex. :
 DATABASE_URL="postgresql://user:password@127.0.0.1:5432/taskr"
 
-###Génération des clés JWT :
+### Génération des clés JWT :
 
 ``mkdir -p config/jwt
 openssl genrsa -out config/jwt/private.pem -aes256 4096
@@ -42,12 +42,12 @@ Tu peux définir la passphrase dans .env :
 
 ``JWT_PASSPHRASE=ta-passphrase``
 
-###Initialisation de la base de données :
+### Initialisation de la base de données :
 
 ``php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate``
 
-###Lancer le serveur : 
+### Lancer le serveur : 
 
 ``symfony server:start``
 
