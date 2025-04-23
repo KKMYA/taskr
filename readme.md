@@ -114,4 +114,5 @@ This project is actively under development.
 Feel free to contribute or reach out!
 
 📧 Email: alexis.callet@free.fr
+
 🔗 LinkedIn: Alexis Callet
