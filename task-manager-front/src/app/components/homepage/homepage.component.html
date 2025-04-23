@@ -4,11 +4,12 @@
     *ngFor="let task of tasks"
   >
     <div class="task-thumbnail-header">
-      <h3>{{ task.title }}</h3>
+      <h3>{{ task.title | truncateTitle:25 }}</h3>
     </div>
 
     <div class="task-thumbnail-body">
-      <p>{{ task.description || 'Pas de description.' }}</p>
+      <p>{{ (task.description || 'Pas de description.') | truncateDescription:200 }}</p>
+
     </div>
 
     <div class="task-thumbnail-footer">
