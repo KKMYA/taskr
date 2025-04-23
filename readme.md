@@ -92,17 +92,17 @@ ng serve
 
 📦 Fonctionnalités
 
-✅ Authentification JWT
+- ✅ Authentification JWT
 
-✅ Affichage des tâches par utilisateur
+- ✅ Affichage des tâches par utilisateur
 
-✅ Création / édition / suppression de tâches
+- ✅ Création / édition / suppression de tâches
 
-✅ Interface responsive
+- ✅ Interface responsive
 
 🔐 Sécurité
 
-Le fichier .env, les clés JWT, vendor/, etc. sont exclus du dépôt via .gitignore.
+- Les fichiers .env, les clés JWT (private.pem, public.pem), vendor/, var/, etc. sont exclus du dépôt via .gitignore.
 
 🧑‍💻 Développement
 Ce projet est en cours de développement.
