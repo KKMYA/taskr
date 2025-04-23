@@ -19,16 +19,12 @@ taskr/
 
 ## 1. Backend (Symfony)
 
-``cd task-manager-back/``
-_
-``composer install``
-_
+```cd task-manager-back/
+composer install```
+
 ``cp .env.example .env``
-_
 ``php bin/console doctrine:database:create``
-_
 ``php bin/console doctrine:migrations:migrate``
-_
 ``symfony server:start``
 
 
