@@ -95,7 +95,7 @@ ng serve
 
 ---
 
-#📦 Features
+# 📦 Features
 
 - ✅ JWT authentication
 
@@ -103,7 +103,7 @@ ng serve
 
 - ✅  Responsive user interface
 
-# 🔐 Sécurité
+# 🔐 Security
 
 Sensitive files like .env, JWT keys (private.pem, public.pem), vendor/, and var/ are excluded from the repository using .gitignore.
 
