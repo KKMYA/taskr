@@ -1,139 +1,26 @@
 <div class="task-thumbnails-container fade-in">
-    <div class="task-thumbnail">
-      <div class="task-thumbnail-header">
-        <h3>Je suis un titre</h3>
-      </div>
-      <div class="task-thumbnail-body">
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-            In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-            Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-        </p>
-      </div>
-      <div class="task-thumbnail-footer">
-        <span class="task-status">Etat</span>
-        <button class="view-details-btn">Voir les détails</button>
-      </div>
+  <div
+    class="task-thumbnail"
+    *ngFor="let task of tasks"
+  >
+    <div class="task-thumbnail-header">
+      <h3>{{ task.title | truncateTitle:25 }}</h3>
     </div>
-    <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
-      <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
-      <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
-      <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
-      <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
-      <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
-      <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
-      <div class="task-thumbnail">
-        <div class="task-thumbnail-header">
-          <h3>Je suis un titre</h3>
-        </div>
-        <div class="task-thumbnail-body">
-          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. 
-              In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. 
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-          </p>
-        </div>
-        <div class="task-thumbnail-footer">
-          <span class="task-status">Etat</span>
-          <button class="view-details-btn">Voir les détails</button>
-        </div>
-      </div>
+
+    <div class="task-thumbnail-body">
+      <p>{{ (task.description || 'Pas de description.') | truncateDescription:200 }}</p>
+
+    </div>
+
+    <div class="task-thumbnail-footer">
+      <span
+        class="task-status"
+        [class.done]="task.isDone"
+        [class.todo]="!task.isDone"
+      >
+        {{ task.isDone ? 'Terminée' : 'À faire' }}
+      </span>
+      <button class="view-details-btn">Voir les détails</button>
+    </div>
   </div>
-  
-  
+</div>
