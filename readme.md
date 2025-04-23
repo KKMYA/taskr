@@ -1,44 +1,49 @@
 # TaskR
 
-TaskR est une application web de gestion de tâches, développée avec Angular en front-end et Symfony en back-end.
+TaskR is a web application for task management, built with Angular for the frontend and Symfony for the backend.
 
-## 🔧 Stack technique
+## 🔧 Tech Stack
 
-- **Frontend** : Angular
-- **Backend** : Symfony (API REST avec authentification JWT)
-- **Base de données** : PostgreSQL
+- **Frontend**: Angular
+- **Backend**: Symfony (REST API with JWT authentication)
+- **Database**: PostgreSQL
+
+---
+
+## 📁 Project Structure
+
+
 
 ## 📁 Structure du projet
 ```
 taskr/
 │
-├── task-manager-front/           # Application Angular
-│   ├── src/                      # Code source Angular
-│   │   ├── app/                  # Composants, services, modules
-│   │   └── assets/              # Images, icônes, styles statiques
-│   ├── angular.json              # Configuration Angular CLI
-│   ├── package.json              # Dépendances npm
-│   └── tsconfig.json             # Configuration TypeScript
+├── task-manager-front/           # Angular application
+│   ├── src/                      # Angular source code
+│   │   ├── app/                  # Components, services, modules
+│   │   └── assets/               # Static assets (images, styles)
+│   ├── angular.json              # Angular CLI configuration
+│   ├── package.json              # npm dependencies
+│   └── tsconfig.json             # TypeScript configuration
 │
-└── task-manager-back/            # API Symfony
-    ├── src/                      # Code source PHP
-    │   ├── Controller/          # Contrôleurs d’API REST
-    │   ├── Entity/              # Entités Doctrine
-    │   ├── Repository/          # Repositories Doctrine
-    │   └── DataFixtures/        # Fixtures pour tests/démo
-    ├── config/                   # Configuration Symfony
-    │   ├── packages/            # Configurations des bundles
-    │   └── routes.yaml          # Fichier de routes
-    ├── migrations/              # Migrations Doctrine
-    ├── composer.json            # Dépendances PHP
-    ├── .env.example             # Exemple de config d’environnement
-    └── symfony.lock             # Lockfile des dépendances Symfony
-
+└── task-manager-back/            # Symfony API
+    ├── src/                      # PHP source code 
+    │   ├── Controller/           # REST API controllers
+    │   ├── Entity/               # Doctrine entities
+    │   ├── Repository/           # Doctrine repositories
+    │   └── DataFixtures/         # Demo/test data fixtures
+    ├── config/                   # Symfony configuration 
+    │   ├── packages/             # Bundle configs
+    │   └── routes.yaml           # Routes definition
+    ├── migrations/               # Doctrine migrations
+    ├── composer.json             # PHP dependencies
+    ├── .env.example              # Environment configuration example
+    └── symfony.lock              # Symfony dependencies lockfile
 ```
 
-## 🚀 Lancer le projet en local
+## 🚀 Run the project locally
 
-## 1. Backend (Symfony)
+### 1. Backend (Symfony)
 ```
 cd task-manager-back/
 composer install
@@ -48,34 +53,34 @@ php bin/console doctrine:migrations:migrate
 symfony server:start
 ```
 
-### Configuration :
+### Database configuration :
 
-Ouvre le fichier .env et configure ta base de données, ex. :
+Edit the .env file and update your database credentials :
 ```
 DATABASE_URL="postgresql://user:password@127.0.0.1:5432/taskr"
 ```
 
-### Génération des clés JWT :
+### Generate JWT keys :
 ```
 mkdir -p config/jwt
 openssl genrsa -out config/jwt/private.pem -aes256 4096
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
 
-Tu peux définir la passphrase dans .env :
+Then add the passphrase to your .env if needed :
 
 ```
 JWT_PASSPHRASE=ta-passphrase
 ```
 
-### Initialisation de la base de données :
+### Database initialization :
 
 ```
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 
-### Lancer le serveur : 
+### Start the server : 
 
 ```
 symfony server:start
@@ -90,20 +95,23 @@ ng serve
 ```
 
 
-#📦 Fonctionnalités
+#📦 Features
 
-- ✅ Authentification JWT
+- ✅ JWT authentication
 
-- ✅ Affichage des tâches par utilisateur
+- ✅ Task listing by user (CRUD)
 
-- ✅ Création / édition / suppression de tâches
-
-- ✅ Interface responsive
+- ✅  Responsive user interface
 
 # 🔐 Sécurité
 
-- Les fichiers .env, les clés JWT (private.pem, public.pem), vendor/, var/, etc. sont exclus du dépôt via .gitignore.
+Sensitive files like .env, JWT keys (private.pem, public.pem), vendor/, and var/ are excluded from the repository using .gitignore.
 
-# 🧑‍💻 Développement
+# 🧑‍💻 Development
 
-Ce projet est en cours de développement.
+This project is actively under development.
+
+Feel free to contribute or reach out!
+
+📧 Email: alexis.callet@free.fr
+🔗 LinkedIn: Alexis Callet
