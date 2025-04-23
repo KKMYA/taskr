@@ -9,13 +9,13 @@ TaskR est une application web de gestion de tâches, développée avec Angular e
 - **Base de données** : PostgreSQL
 
 ## 📁 Structure du projet
-
+```
   taskr/
       |
       ├── task-manager-front/ # Application Angular 
       |
       └── task-manager-back/ # API Symfony
-
+```
 
 ## 🚀 Lancer le projet en local
 
