@@ -46,9 +46,6 @@ taskr/
 cd task-manager-back/
 composer install
 cp .env.example .env
-php bin/console doctrine:database:create
-php bin/console doctrine:migrations:migrate
-symfony server:start
 ```
 
 ### Database configuration :
