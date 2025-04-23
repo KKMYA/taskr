@@ -115,4 +115,4 @@ Feel free to contribute or reach out!
 
 📧 Email: alexis.callet@free.fr
 
-🔗 LinkedIn: Alexis Callet
+🔗 LinkedIn: [Alexis Callet](https://www.linkedin.com/in/alexiscallet/)
