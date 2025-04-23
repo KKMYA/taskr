@@ -18,15 +18,14 @@ taskr/
 ## 🚀 Lancer le projet en local
 
 ## 1. Backend (Symfony)
-
-```cd task-manager-back/
-composer install```
-
-``cp .env.example .env``
-``php bin/console doctrine:database:create``
-``php bin/console doctrine:migrations:migrate``
-``symfony server:start``
-
+```
+cd task-manager-back/
+composer install
+cp .env.example .env
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+symfony server:start
+```
 
 ### Configuration :
 
