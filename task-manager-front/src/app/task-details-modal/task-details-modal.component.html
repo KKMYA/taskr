@@ -1,0 +1,20 @@
+<div
+  class="modal-wrapper fade-in"
+  (click)="onBackdropClick($event)"
+  (window:keydown)="onKeydown($event)"
+>
+  <div class="modal-content">
+    <h2>{{ task.title }}</h2>
+    <p>{{ task.description || 'Pas de description.' }}</p>
+    <div class="task-modal-footer">
+        <span
+          class="task-status"
+          [class.done]="task.isDone"
+          [class.todo]="!task.isDone"
+        >
+          {{ task.isDone ? 'Terminée' : 'À faire' }}
+        </span>
+        <button class="close-btn" (click)="close.emit()">Fermer</button>
+      </div>
+  </div>
+</div>

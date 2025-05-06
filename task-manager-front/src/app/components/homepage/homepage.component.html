@@ -20,7 +20,13 @@
       >
         {{ task.isDone ? 'Terminée' : 'À faire' }}
       </span>
-      <button class="view-details-btn">Voir les détails</button>
+      <button class="view-details-btn" (click)="openModal(task)">Voir les détails</button>
     </div>
   </div>
 </div>
+<app-task-details-modal
+  *ngIf="selectedTask"
+  [task]="selectedTask"
+  (close)="selectedTask = null"
+></app-task-details-modal>
+

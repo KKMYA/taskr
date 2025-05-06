@@ -3,12 +3,13 @@ import { TaskService } from '../../services/task.service';
 import { CommonModule } from '@angular/common';
 import { TruncatePipeDescription } from '../../pipes/truncatedescription.pipe';
 import { TruncatePipeTitle } from '../../pipes/truncatetitle.pipe';
+import { TaskDetailsModalComponent } from '../../task-details-modal/task-details-modal.component';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss',
-  imports: [CommonModule, TruncatePipeDescription, TruncatePipeTitle]
+  imports: [CommonModule, TruncatePipeDescription, TruncatePipeTitle, TaskDetailsModalComponent]
 })
 export class HomepageComponent implements OnInit {
   tasks: any[] = [];
@@ -26,4 +27,11 @@ export class HomepageComponent implements OnInit {
       }
     });
   }
+
+  selectedTask: any = null;
+
+openModal(task: any) {
+  this.selectedTask = task;
+}
+
 }
